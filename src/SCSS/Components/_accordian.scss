@@ -1,0 +1,66 @@
+/* _accordian.scss */
+.accordion-button {
+    background-color: #f4f9f4;
+    border: none;
+    color: #4a6d4a;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #d5e4d5;
+    }
+  
+    &:focus {
+      outline: none; /* Removes the focus ring */
+    }
+  }
+  
+  .accordion-collapse {
+    border-top: 1px solid #d5e4d5;
+    background-color: #ffffff;
+  }
+  
+  .accordion-body {
+    color: #5a7c5a;
+  }
+/* Remove blue focus outline from accordion buttons */
+.accordion-button:focus {
+    outline: none !important;  /* Removes outline */
+    box-shadow: none !important; /* Removes box-shadow */
+}
+/* Remove background color and ensure no unwanted styles */
+.accordion-item {
+    background-color: transparent !important; /* Removes background color */
+}
+
+.accordion-button {
+    background-color: transparent !important; /* Ensures no background color on button */
+    border-color: transparent !important; /* Removes border color */
+}
+
+.accordion-button:focus {
+    outline: none !important; /* Removes focus outline */
+    box-shadow: none !important; /* Removes box-shadow */
+}
+  /* Ensure background image remains intact */
+.accordion-button {
+    color: #4a6d4a !important; /* Add your green wallpaper path here */
+    background-size: cover; /* Ensure background image covers the entire section */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Ensure the image doesn't repeat */
+}
+
+/* Remove background styles from the accordion items to keep wallpaper */
+.accordion-item {
+    background-color: transparent !important; /* Removes background color */
+}
+
+.accordion-button {
+    background-color: transparent !important; /* Ensures no background color on button */
+    border-color: transparent !important; /* Removes border color */
+}
+
+.accordion-button:focus {
+    outline: none !important; /* Removes focus outline */
+    box-shadow: none !important; /* Removes box-shadow */
+}

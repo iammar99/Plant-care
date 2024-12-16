@@ -1,0 +1,48 @@
+// -------------- Components --------------
+@import './SCSS/Components/bootstrap';
+@import './SCSS/Components/ScreenLoader';
+@import './SCSS/Components/btns.scss';
+@import './SCSS/Pages/agent';
+
+body{
+    background-color: #FFFFFF;
+}
+/* Reset focus outline for Bootstrap components globally */
+
+body {
+    font-family: 'Merriweather', serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// ------------- For putting footer in bottom -------------
+
+#root{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main{
+    flex: 1 0 auto;
+}
+
+// -------------- Scroll-Bar -------------
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+// -------------- Auth -------------------
+// -------------- Dashboard --------------
+// -------------- Frontend ---------------

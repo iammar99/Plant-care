@@ -2,14 +2,19 @@ import React, { useState, useRef, useCallback } from 'react'
 import Webcam from "react-webcam";
 import { Link } from 'react-router-dom'
 import Groq from 'groq-sdk';
-import logo from "../Assets/growth.png"
+import logo from "../../Assets/growth.png"
+import profile from "../../Assets/profile.png"
 import { marked } from 'marked';
-import { ToastContainer , toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
+import { fireStore } from 'Config/firebase';
+import { setDoc , doc } from 'firebase/firestore';
+
 
 
 export default function Agent() {
 
+  const user = JSON.parse(localStorage.getItem("User"))
   const [base64, setBase64] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -37,6 +42,7 @@ export default function Agent() {
 
   const [plantName, setPlantName] = useState('');
   const [diseaseName, setDiseaseName] = useState('');
+  const [nonMarked, setNonMarked] = useState('');
   const [detail, setDetail] = useState('');
 
   // Function to get results
@@ -117,13 +123,24 @@ export default function Agent() {
         const newResponse = await plantDiseaseInfo(diseaseName);
         console.log(JSON.stringify(newResponse.choices[0].message.content))
         const groqContent = newResponse.choices[0].message.content;
+        setNonMarked(groqContent)
         const formattedData = marked(groqContent)
 
         // Set the extracted plant and disease names in state
         setDetail(formattedData)
         setPlantName(plantName);
         setDiseaseName(diseaseName);
-        console.log("first")
+        const now = new Date();
+        const currentTime = now.toLocaleTimeString();
+        let id = Math.floor(10000000 + Math.random() * 90000000).toString();
+        let obj = {
+          img: base64,
+          details: detail,
+          time: currentTime,
+          userId : user.ID
+        }
+        console.log(obj)
+        // setDoc(doc(fireStore, "History", id), obj)
       } catch (error) {
         console.log('error', error);
       } finally {
@@ -159,16 +176,32 @@ export default function Agent() {
   // Styling for buttons
 
   const btnStyle = {
-    "width": "186px",
-    "margin": "auto"
-  }
+    width: "186px",
+    margin: "auto",
+    height: "50px",
+    background: "linear-gradient(0deg, #3BBF91, #307750)",
+    boxShadow: `
+      inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+      inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+      0px 0px 0px 4px rgba(255, 255, 255, 0.2),
+      0px 0px 180px 0px #29A67E
+    `,
+    transform: "translateY(-2px)"
+  };
+
 
   return (
     <main>
       {/* ----------- Logo ----------------- */}
-      <Link className='text-decoration-none' style={{ color: "black" }} to={"/"}>
-        <img src={logo} alt="" style={{ "width": "9%", "margin": "15px 10px 10px 15px" }} />
-      </Link>
+
+      <div className="d-flex justify-content-between px-4">
+        <Link className='text-decoration-none' style={{ color: "black" }} to={"/"}>
+          <img src={logo} alt="" style={{ "width": "9%", "margin": "15px 10px 10px 15px" }} />
+        </Link>
+        <Link to={"/dashboard/profile"}>
+          <img src={profile} alt="" className='d-block ms-auto' style={{ "width": "17%", "margin": "15px 10px 10px 15px" }} />
+        </Link>
+      </div>
 
       {/* ---Live Preview--------- */}
       <div className="container">
@@ -191,7 +224,7 @@ export default function Agent() {
               <svg
                 viewBox="0 0 1024 1024"
                 fill="currentColor"
-                height="2em"
+                height="20px"
                 width="2em"
               >
                 <path d="M864 260H728l-32.4-90.8a32.07 32.07 0 00-30.2-21.2H358.6c-13.5 0-25.6 8.5-30.1 21.2L296 260H160c-44.2 0-80 35.8-80 80v456c0 44.2 35.8 80 80 80h704c44.2 0 80-35.8 80-80V340c0-44.2-35.8-80-80-80zM512 716c-88.4 0-160-71.6-160-160s71.6-160 160-160 160 71.6 160 160-71.6 160-160 160zm-96-160a96 96 0 10192 0 96 96 0 10-192 0z" />
@@ -203,7 +236,7 @@ export default function Agent() {
               <svg
                 fill="currentColor"
                 viewBox="0 0 16 16"
-                height="2em"
+                height="20px"
                 width="2em"
               >
                 <path d="M6.002 5.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
@@ -217,37 +250,15 @@ export default function Agent() {
         <div className="row my-4">
           <div className="col text-center d-flex justify-content-center flex-column flex-sm-row">
             {/* Generate image */}
-            <button className="generate-button" style={btnStyle} onClick={handleSubmit}>
-              <div className="inner">
-                <div className="svgs">
-                  <svg
-                    viewBox="0 0 256 256"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="svg-l"
-                  >
-                    <path
-                      d="M240 128a15.79 15.79 0 0 1-10.5 15l-63.44 23.07L143 229.5a16 16 0 0 1-30 0l-23.06-63.44L26.5 143a16 16 0 0 1 0-30l63.44-23.06L113 26.5a16 16 0 0 1 30 0l23.07 63.44L229.5 113a15.79 15.79 0 0 1 10.5 15"
-                      fill="currentColor"
-                    />
-                  </svg>
-                  <svg
-                    viewBox="0 0 256 256"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="svg-s"
-                  >
-                    <path
-                      d="M240 128a15.79 15.79 0 0 1-10.5 15l-63.44 23.07L143 229.5a16 16 0 0 1-30 0l-23.06-63.44L26.5 143a16 16 0 0 1 0-30l63.44-23.06L113 26.5a16 16 0 0 1 30 0l23.07 63.44L229.5 113a15.79 15.79 0 0 1 10.5 15"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-                {loading ? "loading..." : "generate"}
-                {/* Generate */}
-              </div>
+
+            <button className="btn" style={btnStyle} onClick={handleSubmit}>
+              <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" className="sparkle">
+                <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+              </svg>
+
+              <span className="text">
+              {loading ? "loading..." : "Generate"}
+              </span>
             </button>
           </div>
         </div>
@@ -257,10 +268,10 @@ export default function Agent() {
 
       {/* ------- Details--------- */}
 
-      <div className="container my-5">
+      <div className="container my-5 ">
         <div className="row">
           <div className="col">
-            <div className="data rounded-2" style={{ border: "1px solid", minHeight: "300px", "padding": "15px 27px" }}>
+            <div className="data rounded-2 " style={{ "minHeight": "300px", "padding": "15px 27px", "border": "0.1px solid #a5a5a5" }}>
               <div dangerouslySetInnerHTML={{ __html: detail }} />
             </div>
           </div>
@@ -292,14 +303,14 @@ export default function Agent() {
               <Webcam audio={false} height={250} ref={webcamRef} screenshotFormat="image/jpeg" width={470} videoConstraints={videoConstraints} />
             </div>
             <div className="modal-footer">
-              <button className="capture mx-auto" style={{ "width": "50px", "height": "50px", "borderRadius": "50%", "border": "12px #d1d1d1 solid" }}data-bs-dismiss="modal"aria-label="Close" onClick={capture}>
+              <button className="capture mx-auto" style={{ "width": "50px", "height": "50px", "borderRadius": "50%", "border": "12px #d1d1d1 solid" }} data-bs-dismiss="modal" aria-label="Close" onClick={capture}>
               </button>
             </div>
           </div>
         </div>
       </div>
       {/* Toast Container */}
-      <ToastContainer/>
+      <ToastContainer />
     </main>
   )
 }

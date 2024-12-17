@@ -2,7 +2,10 @@
 @import './SCSS/Components/bootstrap';
 @import './SCSS/Components/ScreenLoader';
 @import './SCSS/Components/btns.scss';
+@import "./SCSS/Components/button-loader";
+@import "./SCSS/Components/dataLoader";
 @import './SCSS/Pages/agent';
+@import './SCSS/Pages/auth';
 
 body{
     background-color: #FFFFFF;

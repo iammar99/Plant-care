@@ -13,7 +13,7 @@ export default function Header() {
                             <h1>PlantCare AI</h1>
                             <h3>'Nurture Nature with Smart Solutions' <img src={png} alt="" style={{ width: '45px' }} /></h3>
                             <div className="button mt-3">
-                            <Link to={"/agent"} className='link'>
+                            <Link to={"/dashboard/agent"} className='link'>
                                 <button className="signupBtn">
                                     Try Now
                                     <span className="arrow">

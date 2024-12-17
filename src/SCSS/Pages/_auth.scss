@@ -1,0 +1,127 @@
+.form-container {
+    // background-image: url(../../Assets/background.png);
+    height: 100vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    background-color: #307750;
+}
+
+form{
+    width: 50%;
+}
+
+form.login{
+    min-height: 391px;
+}
+form.register , form.login , form.reset {
+    margin: auto;
+    padding: 40px 30px;
+    background-color: white;
+    // // Glass morphism
+    // background: rgba(225, 225, 225, 0.2);
+    // box-shadow: 0 4px 30px rgba(225, 225, 225, 0.2);
+    // border-radius: 10px;
+    // -webkit-backdrop-filter: blur(5px);
+    // backdrop-filter: blur(5px);
+    a.login-link {
+        width: fit-content;
+        color: black;
+        text-decoration: none;
+    }
+    a.login-link::after {
+        content: '';
+        width: 0%;
+        height: 2px;
+        background: black;
+        display: block;
+        transition: 0.4s;
+    }
+    
+    a.login-link:hover::after {
+        width: 100%;
+    }
+    input {
+        height: 50px;
+    }
+}
+
+
+// ---------------------- Media Queries ----------------------
+
+@media screen and (max-width:666px) {
+    form{
+        width: 70%;
+    }
+}
+
+@media screen and (max-width:431px) {
+  form.register , form.login , form.reset{
+        width: 100%;
+        // background: transparent;
+        // -webkit-backdrop-filter: blur(0px);
+        // backdrop-filter: blur(0px);
+    }
+}
+
+// ---------------------- Hide / Show Password ----------------------
+
+/*------ Settings ------*/
+.password-container {
+    --color: #a5a5b0;
+    --size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: var(--size);
+    user-select: none;
+    fill: var(--color);
+  }
+  
+  .password-container .eye {
+    position: absolute;
+    animation: keyframes-fill .5s;
+    right: 2px;
+    bottom: 8px;
+  }
+  
+  .password-container .eye-slash {
+    position: absolute;
+    animation: keyframes-fill .5s;
+    right: 2px;
+    bottom: 8px;
+    display: none;
+  }
+  
+  /* ------ On check event ------ */
+  .password-container input:checked ~ .eye {
+    display: none;
+  }
+  
+  .password-container input:checked ~ .eye-slash {
+    display: block;
+  }
+  
+  /* ------ Hide the default checkbox ------ */
+  .password-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* ------ Animation ------ */
+  @keyframes keyframes-fill {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  
+    50% {
+      transform: scale(1.2);
+    }
+  }

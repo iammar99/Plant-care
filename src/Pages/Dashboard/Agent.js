@@ -121,7 +121,6 @@ export default function Agent() {
 
         // Get Groq detail for the disease name
         const newResponse = await plantDiseaseInfo(diseaseName);
-        console.log(JSON.stringify(newResponse.choices[0].message.content))
         const groqContent = newResponse.choices[0].message.content;
         setNonMarked(groqContent)
         const formattedData = marked(groqContent)
@@ -135,12 +134,13 @@ export default function Agent() {
         let id = Math.floor(10000000 + Math.random() * 90000000).toString();
         let obj = {
           img: base64,
-          details: detail,
+          details: formattedData,
           time: currentTime,
           userId : user.ID
         }
+        console.log(detail)
         console.log(obj)
-        // setDoc(doc(fireStore, "History", id), obj)
+        setDoc(doc(fireStore, "History", id), obj)
       } catch (error) {
         console.log('error', error);
       } finally {

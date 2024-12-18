@@ -196,7 +196,7 @@ export default function Agent() {
 
       <div className="d-flex justify-content-between px-4">
         <Link className='text-decoration-none' style={{ color: "black" }} to={"/"}>
-          <img src={logo} alt="" style={{ "width": "9%", "margin": "15px 10px 10px 15px" }} />
+          <img src={logo} alt="" style={{ "width": "56px", "margin": "15px 10px 10px 15px" }} />
         </Link>
         <Link to={"/dashboard/profile"} style={{ "alignItems": "center", "display": "flex" }}>
           <button className="border-0 bg-light">

@@ -300,7 +300,7 @@ export default function Agent() {
               />
             </div>
             <div className="modal-body">
-              <Webcam audio={false} height={250} ref={webcamRef} screenshotFormat="image/jpeg" width={470} videoConstraints={videoConstraints} />
+              <Webcam audio={false} height={250} ref={webcamRef} screenshotFormat="image/jpeg" style={{"width":"100%"}} videoConstraints={videoConstraints} />
             </div>
             <div className="modal-footer">
               <button className="capture mx-auto" style={{ "width": "50px", "height": "50px", "borderRadius": "50%", "border": "12px #d1d1d1 solid" }} data-bs-dismiss="modal" aria-label="Close" onClick={capture}>
